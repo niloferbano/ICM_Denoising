@@ -28,6 +28,11 @@ class ICM:
         plt.show()
 
     def add_noise(self,noise = 0):
+        """
+        This function adds noise to original noise free image if the noise value is greater that 0 
+        else it uses the noisy image
+
+		"""
         if noise == 0:
             return self.image
         else:
@@ -38,6 +43,10 @@ class ICM:
             return noisy_image
         
     def initialize_hyperparameter(self,h, beta, eta):
+        """
+        This initializes the hyperparameters to be used for denoising in update_pixel function
+        
+        """
         self.h = h
         self.beta = beta
         self.eta = eta
@@ -53,6 +62,7 @@ class ICM:
         neighbour_factor = 0
         bias = 0
         
+        #Calculating energy for pixel value 1
         x_i = self.binary_pixel[0] # for pixel value +1
         y_i =self. noisy_image_ref[i][j]
         if i-1 >= 0:
@@ -67,6 +77,7 @@ class ICM:
         bias = x_i
         energy_plus1 = self.h*bias - self.beta*latent_factor - self.eta*neighbour_factor
         
+        #Calculating energy for pixel value -1
         x_i = self.binary_pixel[1] # for pixel value -1
         bias = 0
         latent_factor = 0

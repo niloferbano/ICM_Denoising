@@ -20,7 +20,6 @@ im = np.where(im<255,-1,1)
 
 noisy_image_ref = noisy_image = im
 
-
 binary_pixel = np.array([1,-1])
 
 h = 1
@@ -31,18 +30,16 @@ def add_noise(noise = 0):
     global noisy_image
     if(noise == 0):
         return
-    global im
     im = misc.imread('Download-Free-Binary-Code-Wallpaper_binary.bmp')
     im = np.where(im<255,-1,1)
-    noise = np.random.normal(im.shape[0],im.shape[1])
-    noisy = np.where(noise<0.1,-1,1)
+    noise_im = np.random.normal(im.shape[0],im.shape[1])
+    noisy = np.where(noise_im<noise,-1,1)
     noisy_image = im * noisy
     noisy_image_ref = noisy_image
     
-def ICM(i, j, noise):
+def ICM(i, j):
     global noisy_image_ref
     global noisy_image
-    add_noise(noise)
     latent_factor = 0
     neighbour_factor = 0 
     bias = 0 
@@ -81,9 +78,8 @@ def ICM(i, j, noise):
     noisy_image_ref = noisy_image
     
 # ICM
-
-[ICM(i,j,0.2) for k in (0,2) for i in range(0, noisy_image.shape[0]) for j in range(0, noisy_image.shape[1])]
+add_noise(0.2)
+[ICM(i,j) for k in (0,2) for i in range(0, noisy_image.shape[0]) for j in range(0, noisy_image.shape[1])]
 	
-noisy_image_ref = np.where(noisy_image_ref<1, 0,255)
-imgplot = plt.imshow(noisy_image_ref, cmap = 'gray')
+plt.imshow(noisy_image_ref, cmap = 'gray')
 plt.show()
