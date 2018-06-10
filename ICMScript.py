@@ -28,8 +28,10 @@ eta = 2.1
 def add_noise(noise = 0):
     global noisy_image_ref
     global noisy_image
+    #returns noisy image
     if(noise == 0):
         return
+    #returns noise added to noise free image
     im = misc.imread('Download-Free-Binary-Code-Wallpaper_binary.bmp')
     im = np.where(im<255,-1,1)
     noise_im = np.random.normal(im.shape[0],im.shape[1])
@@ -78,6 +80,8 @@ def ICM(i, j):
     noisy_image_ref = noisy_image
     
 # ICM
+# Adds noise to original noise free image if parameter value is greater than 0 
+# or else uses given noisy image
 add_noise(0.2)
 [ICM(i,j) for k in (0,2) for i in range(0, noisy_image.shape[0]) for j in range(0, noisy_image.shape[1])]
 	

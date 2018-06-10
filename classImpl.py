@@ -36,7 +36,7 @@ class ICM:
         if noise == 0:
             return self.image
         else:
-            self.__init__("Download-Free-Binary-Code-Wallpaper_binary")
+            self.__init__("Download-Free-Binary-Code-Wallpaper_binary.bmp")
             noise_rand = np.random.normal(self.image.shape[0],self.image.shape[1])
             noise_image_ = np.where(noise_rand<noise,-1,1)
             noisy_image = self.image * noise_image_
@@ -103,6 +103,6 @@ class ICM:
 
                           
 icm = ICM('Download-Free-Binary-Code-Wallpaper_noisy.bmp', 0 , 1.0, 2.1)
-icm.apply_ICM();
+icm.apply_ICM(0.2);
 plt.imshow(icm.noisy_image_ref, cmap = 'gray')
 plt.show()
